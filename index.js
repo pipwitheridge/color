@@ -1,4 +1,4 @@
-var noOptions = 40;
+var noOptions = 28;
 
 const showView = function(viewID) {
    const pV = document.getElementsByClassName("pageView");
