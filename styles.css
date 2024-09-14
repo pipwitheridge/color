@@ -1,0 +1,39 @@
+#bodyContainer {
+align-items: center;
+display: flex;
+justify-content: space-around;
+}
+
+#countdown {
+    text-align: center;
+    color: azure;
+    text-shadow: 2px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    text-decoration-color: black;
+    line-height: 200px;
+    font-family: Verdana, sans-serif;
+}
+
+#answerColor {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+#optionColors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+
+.optionColor {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.optionColor:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
