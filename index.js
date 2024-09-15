@@ -1,5 +1,7 @@
 var noOptions = 28;
 
+var streakCount = 0
+
 const showView = function(viewID) {
    const pV = document.getElementsByClassName("pageView");
    const pVLength = pV.length;
@@ -11,8 +13,9 @@ const showView = function(viewID) {
 }
 
 function startCountdown() {
-    showView(0);
     let countdownNumber = 3;
+    let countdownSpeed = streakCount < 10 ? 1000 - (50 * streakCount) : 400;
+    showView(0);
     const countdownElement = document.getElementById('countdown');
     const countdownInterval = setInterval(() => {
         countdownElement.innerHTML = countdownNumber;
@@ -21,9 +24,10 @@ function startCountdown() {
             clearInterval(countdownInterval);
             countdownElement.innerHTML = "Go!";
             showView(1);
+            countdownNumber = "";
+            countdownElement.innerHTML = countdownNumber;
         }
-    }, 1000);
-    
+    }, countdownSpeed);
 }
 
 const loadAnswerColor = function() {
@@ -34,7 +38,9 @@ const loadAnswerColor = function() {
         var rgb = `rgb(${r},${g},${b})`;
         document.getElementById("answerColor").style.backgroundColor = rgb;
 }
+
 const loadOptionColors = function() {
+    document.getElementById("optionColors").innerHTML = "";
     var randomBetween = (min, max) => min + Math.floor(Math.random() * (max - min + 1));
     var answerSquare = randomBetween(1, noOptions)
     for(let i = 0; i < noOptions; i++) {
@@ -48,18 +54,26 @@ const loadOptionColors = function() {
             newEl.style.backgroundColor = document.getElementById("answerColor").style.backgroundColor;
             newEl.id = "correctAnswer";
             newEl.addEventListener('click', () => {
-                alert('GOT IT!');
-                noOptions +10;
-                location.reload();
+                alert('Got it!');
+                streakCount++;
+                startCountdown();
+                loadAnswerColor();
+                loadOptionColors();
+                document.getElementById("streakCount").innerHTML = streakCount;
+                if(streakCount > localStorage.getItem("recordCount")) {
+                    localStorage.setItem("recordCount", streakCount)
+                }
+                document.getElementById("recordCount").innerHTML = localStorage.getItem("recordCount") ? localStorage.getItem("recordCount") : 0;
+                showView(0);
             });
         }
         else {
             newEl.style.backgroundColor = rgb;
             newEl.addEventListener('click', () => {
-                alert('FAIL WHALE!');
+                alert("Fail whale! :(")
                 document.getElementById("correctAnswer").style.border = "2px solid black";
-                const countdownInterval = setInterval(() => {
-                    location.reload();
+                setInterval(() => {
+                    showView(2);
                 }, 1500);
             });
         }
@@ -67,8 +81,19 @@ const loadOptionColors = function() {
     }
 }
 
-window.onload = function () {
+var reloadElements = function() {
     startCountdown();
     loadAnswerColor();
     loadOptionColors();
+    document.getElementById("streakCount").innerHTML = streakCount;
 }
+
+window.onload = function () {
+    reloadElements();
+    document.getElementById("playAgain").addEventListener("click", () => {
+        window.location.reload();
+    })
+    document.getElementById("recordCount").innerHTML = localStorage.getItem("recordCount") ? localStorage.getItem("recordCount") : 0;
+}
+
+

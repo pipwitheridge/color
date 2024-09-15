@@ -4,10 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color Curse</title>
-    <link rel="stylesheet" href="./styles.css"></link>
+    <link rel="stylesheet" href="./styleBig.css"></link>
+    <link rel="stylesheet" href="./styleSmall.css"></link>
 </head>
 <script src="./index.js"></script>
 <body>
+<div id="pageContainer">
+<div id="header">
+    <div>Streak: <span id="streakCount"></span></div>
+    <div>Record: <span id="recordCount"></span></div>
+</div>
 <div id="bodyContainer">
     <div id="view1" class="pageView">
         <div id="answerColor">
@@ -17,6 +23,15 @@
     <div id="view2" class="pageView">
         <div id="optionColors"></div>
     </div>
+    <div id="view3" class="pageView">
+        <div id="gameOver">Game Over!</div>
+        <div id="playAgain">Play Again</div>
+    </div>
+    <div id="view4" class="pageView">
+        <div id="correct">Got it!</div>
+        <div id="wrong">Fail whale!</div>
+    </div>
+</div>
 </div>
 </body>
 </html>
